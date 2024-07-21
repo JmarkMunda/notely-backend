@@ -47,10 +47,10 @@ const getNoteByIdQuery = async (id: string) => {
 
 const updateNoteQuery = async (id: string, data: NotesType) => {
   const query = `UPDATE notes
-    SET title = $1, description = $2
-    WHERE id = $3
+    SET title = $1, description = $2, userId = $3
+    WHERE id = $4
     RETURNING *;`;
-  const values = [data.title, data.description, id];
+  const values = [data.title, data.description, data.userId, id];
   const result = await pool.query(query, values);
   return result;
 };

@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import {
   addNoteQuery,
-  createNotesTableQuery,
   deleteNoteQuery,
   getAllNotesQuery,
   updateNoteQuery,
@@ -11,8 +10,7 @@ import { NotesType } from "../types/notes";
 
 const getAllNotes = async (req: Request, res: Response) => {
   try {
-    // Perform create table query
-    await createNotesTableQuery();
+    // Perform get all notes query
     const queryResult = await getAllNotesQuery();
     // Success
     res.status(200).json({
@@ -39,7 +37,7 @@ const addNote = async (req: Request, res: Response) => {
     const data = matchedData<NotesType>(req);
     // Valid fields
     if (validation.isEmpty()) {
-      await createNotesTableQuery();
+      // Perform add note query
       const queryResult = await addNoteQuery(data);
       // Succesfful creation
       return res.status(201).json({
