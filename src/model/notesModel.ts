@@ -1,22 +1,8 @@
 import pool from "../config/db";
 import { NotesType } from "../types/notes";
 
-const createNotesTableQuery = async () => {
-  const query = `CREATE TABLE IF NOT EXISTS notes (
-        id SERIAL PRIMARY KEY,
-        title VARCHAR(255) NOT NULL,
-        description TEXT NOT NULL,
-        user_id INTEGER NOT NULL,
-        createdAt TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-        updatedAt TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
-    )`;
-  const result = await pool.query(query);
-  return result;
-};
-// userId INTEGER REFERENCES users(id) ON DELETE CASCADE,
-
 const getAllNotesQuery = async () => {
-  const query = `SELECT * FROM notes ORDER BY createdat DESC;`;
+  const query = `SELECT * FROM notes ORDER BY created_at DESC;`;
   const result = await pool.query(query);
   return result;
 };
@@ -56,7 +42,6 @@ const updateNoteQuery = async (id: string, data: NotesType) => {
 };
 
 export {
-  createNotesTableQuery,
   getAllNotesQuery,
   getNoteByIdQuery,
   addNoteQuery,
