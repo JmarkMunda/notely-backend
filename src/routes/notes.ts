@@ -12,14 +12,14 @@ const router = express.Router();
 router.get("/", getAllNotes);
 router.post(
   "/add",
-  body(["title", "description", "userId"]).notEmpty(),
+  body(["title", "description", "user_id"]).notEmpty().escape(),
   addNote
 );
 router.patch(
   "/:id",
   [
     param("id").notEmpty(),
-    body(["title", "description", "userId"]).notEmpty().escape(),
+    body(["title", "description", "user_id"]).notEmpty().escape(),
   ],
   editNote
 );
