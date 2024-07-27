@@ -1,5 +1,5 @@
 import express from "express";
-import { body, param } from "express-validator";
+import { body, param, query } from "express-validator";
 import {
   addNote,
   deleteNote,
@@ -9,17 +9,21 @@ import {
 
 const router = express.Router();
 
-router.get("/", getAllNotes);
+router.get(
+  "/",
+  query(["order", "category", "search"]).isString().escape(),
+  getAllNotes
+);
 router.post(
   "/add",
-  body(["title", "description", "user_id"]).notEmpty().escape(),
+  body(["title", "description", "category"]).notEmpty().escape(),
   addNote
 );
 router.patch(
   "/:id",
   [
     param("id").notEmpty(),
-    body(["title", "description", "user_id"]).notEmpty().escape(),
+    body(["title", "description", "category"]).notEmpty().escape(),
   ],
   editNote
 );

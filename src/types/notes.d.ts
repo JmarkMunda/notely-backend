@@ -1,5 +1,11 @@
 export type NotesType = {
   title: string;
   description: string;
-  user_id: string;
+  category: string;
+};
+
+export type QueryType = {
+  order: string;
+  category: string;
+  search: string;
 };

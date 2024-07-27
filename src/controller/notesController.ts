@@ -6,12 +6,13 @@ import {
   updateNoteQuery,
 } from "../model/notesModel";
 import { matchedData, validationResult } from "express-validator";
-import { NotesType } from "../types/notes";
+import { NotesType, QueryType } from "../types/notes";
 
 const getAllNotes = async (req: Request, res: Response) => {
   try {
+    const { order, category, search } = req.query as QueryType;
     // Perform get all notes query
-    const queryResult = await getAllNotesQuery();
+    const queryResult = await getAllNotesQuery(order, category, search);
     // Success
     res.status(200).json({
       statusCode: 1,
